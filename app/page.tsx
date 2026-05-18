@@ -172,7 +172,7 @@ export default function Home() {
             onChange={(e) => setSuche(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && suchen()}
             placeholder="PLZ oder Ort … z.B. 67373 oder Speyer"
-            className="flex-1 px-4 py-3 rounded-lg text-slate-900 text-sm outline-none focus:ring-2 focus:ring-emerald-400"
+            className="flex-1 px-4 py-3 rounded-lg bg-white text-slate-900 placeholder-slate-400 text-sm outline-none focus:ring-2 focus:ring-emerald-400"
           />
           <button
             onClick={() => suchen()}
