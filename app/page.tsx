@@ -5,72 +5,98 @@ import { useState } from 'react';
 
 const KreisRadarMap = dynamic(() => import('./components/KreisRadarMap'), { ssr: false });
 
-const PLZ_DATA: Record<string, { ort: string; vg: string; lat: number; lng: number }> = {
-  '67227': { ort: 'Frankenthal', vg: 'Frankenthal', lat: 49.533, lng: 8.354 },
-  '67229': { ort: 'Frankenthal', vg: 'Frankenthal', lat: 49.533, lng: 8.354 },
-  '67067': { ort: 'Ludwigshafen', vg: 'Ludwigshafen', lat: 49.477, lng: 8.445 },
-  '67373': { ort: 'Dudenhofen', vg: 'Römerberg-Dudenhofen', lat: 49.367, lng: 8.432 },
-  '67354': { ort: 'Römerberg', vg: 'Römerberg-Dudenhofen', lat: 49.35, lng: 8.4 },
-  '67346': { ort: 'Speyer', vg: 'Speyer', lat: 49.317, lng: 8.431 },
-  '67435': { ort: 'Neustadt a.d.W.', vg: 'Neustadt', lat: 49.352, lng: 8.139 },
-  '67122': { ort: 'Altrip', vg: 'Rheinauen', lat: 49.435, lng: 8.499 },
-  '67125': { ort: 'Dannstadt-Schauernheim', vg: 'Dannstadt-Schauernheim', lat: 49.433, lng: 8.318 },
-  '67240': { ort: 'Bobenheim-Roxheim', vg: 'Maxdorf', lat: 49.566, lng: 8.35 },
-  '67133': { ort: 'Maxdorf', vg: 'Maxdorf', lat: 49.517, lng: 8.274 },
-  '67112': { ort: 'Mutterstadt', vg: 'Mutterstadt', lat: 49.435, lng: 8.357 },
+type OrtTyp = 'kreis' | 'kreisfrei';
+
+interface OrtData {
+  ort: string;
+  vg: string | null;
+  typ: OrtTyp;
+  lat: number;
+  lng: number;
+}
+
+// Alle Orte im Rhein-Pfalz-Kreis + Speyer als kreisfreie Stadt
+const PLZ_DATA: Record<string, OrtData> = {
+  // Verbandsfreie Stadt
+  '67105': { ort: 'Schifferstadt',          vg: null,                    typ: 'kreis',    lat: 49.382, lng: 8.373 },
+
+  // Verbandsfreie Gemeinden
+  '67122': { ort: 'Altrip',                 vg: null,                    typ: 'kreis',    lat: 49.441, lng: 8.502 },
+  '67240': { ort: 'Bobenheim-Roxheim',      vg: null,                    typ: 'kreis',    lat: 49.570, lng: 8.349 },
+  '67459': { ort: 'Böhl-Iggelheim',         vg: null,                    typ: 'kreis',    lat: 49.393, lng: 8.310 },
+  '67245': { ort: 'Lambsheim',              vg: null,                    typ: 'kreis',    lat: 49.530, lng: 8.287 },
+  '67117': { ort: 'Limburgerhof',           vg: null,                    typ: 'kreis',    lat: 49.413, lng: 8.383 },
+  '67112': { ort: 'Mutterstadt',            vg: null,                    typ: 'kreis',    lat: 49.438, lng: 8.356 },
+  '67141': { ort: 'Neuhofen',               vg: null,                    typ: 'kreis',    lat: 49.422, lng: 8.461 },
+
+  // VG Dannstadt-Schauernheim
+  '67125': { ort: 'Dannstadt-Schauernheim', vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.431, lng: 8.317 },
+  '67126': { ort: 'Hochdorf-Assenheim',     vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.451, lng: 8.299 },
+  '67127': { ort: 'Rödersheim-Gronau',      vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.442, lng: 8.277 },
+
+  // VG Lambsheim-Heßheim
+  '67259': { ort: 'Heßheim / Beindersheim', vg: 'Lambsheim-Heßheim',     typ: 'kreis',   lat: 49.551, lng: 8.311 },
+  '67258': { ort: 'Heßheim',                vg: 'Lambsheim-Heßheim',     typ: 'kreis',   lat: 49.552, lng: 8.272 },
+
+  // VG Maxdorf
+  '67133': { ort: 'Maxdorf',                vg: 'Maxdorf',               typ: 'kreis',   lat: 49.516, lng: 8.274 },
+  '67134': { ort: 'Birkenheide',            vg: 'Maxdorf',               typ: 'kreis',   lat: 49.519, lng: 8.253 },
+  '67136': { ort: 'Fußgönheim',             vg: 'Maxdorf',               typ: 'kreis',   lat: 49.474, lng: 8.268 },
+
+  // VG Rheinauen
+  '67166': { ort: 'Otterstadt',             vg: 'Rheinauen',             typ: 'kreis',   lat: 49.362, lng: 8.453 },
+  '67165': { ort: 'Waldsee',                vg: 'Rheinauen',             typ: 'kreis',   lat: 49.362, lng: 8.460 },
+
+  // VG Römerberg-Dudenhofen
+  '67354': { ort: 'Römerberg',              vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.351, lng: 8.396 },
+  '67373': { ort: 'Dudenhofen',             vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.367, lng: 8.432 },
+  '67374': { ort: 'Hanhofen',               vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.389, lng: 8.438 },
+  '67376': { ort: 'Harthausen',             vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.373, lng: 8.460 },
+
+  // Speyer — kreisfreie Stadt (eigene Informationsbasis)
+  '67346': { ort: 'Speyer',                 vg: null,                    typ: 'kreisfrei', lat: 49.318, lng: 8.431 },
+  '67347': { ort: 'Speyer',                 vg: null,                    typ: 'kreisfrei', lat: 49.318, lng: 8.431 },
 };
 
+// Ortsname → PLZ-Lookup
+const ORT_INDEX: Record<string, string> = {};
+Object.entries(PLZ_DATA).forEach(([plz, d]) => {
+  const key = d.ort.toLowerCase();
+  if (!ORT_INDEX[key]) ORT_INDEX[key] = plz;
+});
+
 const ABGEORDNETE = [
-  {
-    name: 'Isabel Mackensen-Geis',
-    partei: 'SPD',
-    ebene: 'Bundestag',
-    wahlkreis: 'Ludwigshafen/Frankenthal',
-    farbe: 'bg-red-50 border-red-200',
-    textfarbe: 'text-red-900',
-    parteifarbe: 'bg-red-500',
-  },
-  {
-    name: 'Torbjörn Kartes',
-    partei: 'CDU',
-    ebene: 'Bundestag',
-    wahlkreis: 'Ludwigshafen/Frankenthal',
-    farbe: 'bg-slate-50 border-slate-200',
-    textfarbe: 'text-slate-900',
-    parteifarbe: 'bg-slate-700',
-  },
-  {
-    name: 'Michael Frisch',
-    partei: 'AfD',
-    ebene: 'Bundestag',
-    wahlkreis: 'Neustadt/Speyer',
-    farbe: 'bg-blue-50 border-blue-200',
-    textfarbe: 'text-blue-900',
-    parteifarbe: 'bg-blue-600',
-  },
-  {
-    name: 'Lea Heidbreder',
-    partei: 'SPD',
-    ebene: 'Landtag RLP',
-    wahlkreis: 'Rhein-Pfalz-Kreis I',
-    farbe: 'bg-red-50 border-red-200',
-    textfarbe: 'text-red-900',
-    parteifarbe: 'bg-red-500',
-  },
+  { name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag', wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-red-500', farbe: 'bg-red-50 border-red-200', textfarbe: 'text-red-900' },
+  { name: 'Torbjörn Kartes',        partei: 'CDU', ebene: 'Bundestag', wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900' },
+  { name: 'Michael Frisch',         partei: 'AfD', ebene: 'Bundestag', wahlkreis: 'Neustadt/Speyer',          parteifarbe: 'bg-blue-600',  farbe: 'bg-blue-50 border-blue-200',   textfarbe: 'text-blue-900' },
+  { name: 'Lea Heidbreder',         partei: 'SPD', ebene: 'Landtag RLP', wahlkreis: 'Rhein-Pfalz-Kreis I',   parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900' },
 ];
 
-const COCKPIT_MODULE = [
-  { icon: '📋', titel: 'Amtsblätter', beschreibung: 'Aktuelle Bekanntmachungen & Ausschreibungen', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏛️', titel: 'Meine Abgeordneten', beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '', tagFarbe: '' },
-  { icon: '🗳️', titel: 'Wahlergebnisse', beschreibung: 'Kommunal bis Ortsgemeindeebene', tag: '', tagFarbe: '' },
-  { icon: '📊', titel: 'Statistik', beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '', tagFarbe: '' },
-  { icon: '💰', titel: 'Rechnungshof', beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '📰', titel: 'Nachrichten', beschreibung: 'Regional · SWR · RPR1 · mrn-news', tag: '', tagFarbe: '' },
-  { icon: '📲', titel: 'WhatsApp-Kanal', beschreibung: 'Meldungen direkt aufs Handy', tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
-  { icon: '🤖', titel: 'KI-Assistent', beschreibung: 'Direkt in öffentliche Dokumente fragen', tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+const COCKPIT_MODULE_KREIS = [
+  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',      tag: 'Neu',    tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',     tagFarbe: '' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',   tag: '',      tagFarbe: '' },
+  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',    tagFarbe: '' },
+  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '📰', titel: 'Nachrichten',           beschreibung: 'Regional · SWR · RPR1 · mrn-news', tag: '',     tagFarbe: '' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Meldungen direkt aufs Handy',       tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
+  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',  tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
 ];
 
-type OrtData = { ort: string; vg: string; lat: number; lng: number };
+const COCKPIT_MODULE_SPEYER = [
+  { icon: '📋', titel: 'Amtsblatt Speyer',     beschreibung: 'speyer.de · wöchentliche Ausgaben', tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '🏛️', titel: 'Stadtrat',              beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',   tagFarbe: '' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',        beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '', tagFarbe: '' },
+  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',    tagFarbe: '' },
+  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '🏰', titel: 'Dom & Tourismus',       beschreibung: 'UNESCO-Welterbe · Veranstaltungen',  tag: '',    tagFarbe: '' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Speyer-Meldungen aufs Handy',        tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
+  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',   tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+];
+
+const SCHNELLAUSWAHL = [
+  '67373 Dudenhofen', '67346 Speyer', '67105 Schifferstadt', '67133 Maxdorf',
+];
 
 export default function Home() {
   const [suche, setSuche] = useState('');
@@ -79,7 +105,7 @@ export default function Home() {
   const [cockpitOffen, setCockpitOffen] = useState(false);
   const [fehler, setFehler] = useState('');
 
-  function handleSuche(wert?: string) {
+  function suchen(wert?: string) {
     const eingabe = (wert ?? suche).trim().split(' ')[0];
     setFehler('');
 
@@ -90,17 +116,19 @@ export default function Home() {
       setCockpitOffen(true);
       return;
     }
-    const ortMatch = Object.values(PLZ_DATA).find(
-      (d) => d.ort.toLowerCase() === eingabe.toLowerCase()
-    );
-    if (ortMatch) {
+    const ortKey = eingabe.toLowerCase();
+    const ortPlz = ORT_INDEX[ortKey];
+    if (ortPlz) {
+      const ortMatch = PLZ_DATA[ortPlz];
       setErgebnis(ortMatch);
       setFlyTo([ortMatch.lat, ortMatch.lng]);
       setCockpitOffen(true);
       return;
     }
-    setFehler('Ort oder PLZ nicht gefunden. Versuche z.B. „67373" oder „Dudenhofen".');
+    setFehler(`„${eingabe}" nicht gefunden. Versuche z.B. 67373, 67346 oder „Speyer".`);
   }
+
+  const module = ergebnis?.typ === 'kreisfrei' ? COCKPIT_MODULE_SPEYER : COCKPIT_MODULE_KREIS;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -111,7 +139,7 @@ export default function Home() {
           <span className="text-2xl">📡</span>
           <div>
             <h1 className="text-xl font-bold leading-none">KreisRadar</h1>
-            <p className="text-slate-400 text-xs">Rhein-Pfalz-Kreis</p>
+            <p className="text-slate-400 text-xs">Rhein-Pfalz-Kreis & Speyer</p>
           </div>
         </div>
         <nav className="hidden md:flex gap-6 text-sm text-slate-300">
@@ -124,9 +152,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="bg-slate-900 text-white px-6 py-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3">
-          Dein Kreis. Transparent.
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-3">Dein Kreis. Transparent.</h2>
         <p className="text-slate-300 mb-8 max-w-xl mx-auto text-base leading-relaxed">
           Alle öffentlichen Informationen für deinen Ort — Amtsblätter, Abgeordnete,
           Wahlergebnisse und mehr. Einfach PLZ oder Ort eingeben.
@@ -137,12 +163,12 @@ export default function Home() {
             type="text"
             value={suche}
             onChange={(e) => setSuche(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSuche()}
-            placeholder="PLZ oder Ortsname … z.B. 67373"
+            onKeyDown={(e) => e.key === 'Enter' && suchen()}
+            placeholder="PLZ oder Ort … z.B. 67373 oder Speyer"
             className="flex-1 px-4 py-3 rounded-lg text-slate-900 text-sm outline-none focus:ring-2 focus:ring-emerald-400"
           />
           <button
-            onClick={() => handleSuche()}
+            onClick={() => suchen()}
             className="bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 px-5 py-3 rounded-lg font-semibold text-sm transition"
           >
             Suchen
@@ -152,10 +178,10 @@ export default function Home() {
         {fehler && <p className="text-red-400 text-sm mt-3">{fehler}</p>}
 
         <div className="flex flex-wrap justify-center gap-2 mt-4">
-          {['67373 Dudenhofen', '67354 Römerberg', '67346 Speyer', '67227 Frankenthal'].map((s) => (
+          {SCHNELLAUSWAHL.map((s) => (
             <button
               key={s}
-              onClick={() => { setSuche(s); handleSuche(s); }}
+              onClick={() => { setSuche(s); suchen(s); }}
               className="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-full transition"
             >
               {s}
@@ -169,8 +195,8 @@ export default function Home() {
         {/* Karte */}
         <section id="karte" className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h3 className="font-semibold text-slate-800">🗺️ Rhein-Pfalz-Kreis</h3>
-            <span className="text-xs text-slate-400">OpenStreetMap · Klicke auf einen Ort oder nutze die Suche oben</span>
+            <h3 className="font-semibold text-slate-800">🗺️ Rhein-Pfalz-Kreis & Speyer</h3>
+            <span className="text-xs text-slate-400">OpenStreetMap · Suche oben oder klicke auf die Karte</span>
           </div>
           <div className="h-80">
             <KreisRadarMap flyTo={flyTo} />
@@ -180,40 +206,60 @@ export default function Home() {
         {/* Bürger-Cockpit */}
         {cockpitOffen && ergebnis && (
           <section className="bg-white rounded-2xl shadow-sm overflow-hidden">
-            <div className="px-6 py-4 bg-emerald-50 border-b border-emerald-100 flex items-start justify-between">
-              <div>
-                <h3 className="font-bold text-slate-800 text-lg">📍 Bürger-Cockpit: {ergebnis.ort}</h3>
-                <p className="text-sm text-slate-500 mt-0.5">
-                  Verbandsgemeinde {ergebnis.vg} · Rhein-Pfalz-Kreis · Rheinland-Pfalz
-                </p>
+
+            {/* Cockpit-Header — unterschiedlich für Kreis vs. kreisfreie Stadt */}
+            {ergebnis.typ === 'kreisfrei' ? (
+              <div className="px-6 py-4 bg-violet-50 border-b border-violet-100 flex items-start justify-between">
+                <div>
+                  <h3 className="font-bold text-slate-800 text-lg">📍 Bürger-Cockpit: {ergebnis.ort}</h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs bg-violet-200 text-violet-800 px-2 py-0.5 rounded-full font-semibold">Kreisfreie Stadt</span>
+                    <span className="text-sm text-slate-500">Rheinland-Pfalz · eigene Informationsbasis</span>
+                  </div>
+                </div>
+                <button onClick={() => setCockpitOffen(false)} className="text-slate-400 hover:text-slate-600 text-lg">✕</button>
               </div>
-              <button
-                onClick={() => setCockpitOffen(false)}
-                className="text-slate-400 hover:text-slate-600 text-lg leading-none"
-              >
-                ✕
-              </button>
-            </div>
+            ) : (
+              <div className="px-6 py-4 bg-emerald-50 border-b border-emerald-100 flex items-start justify-between">
+                <div>
+                  <h3 className="font-bold text-slate-800 text-lg">📍 Bürger-Cockpit: {ergebnis.ort}</h3>
+                  <p className="text-sm text-slate-500 mt-0.5">
+                    {ergebnis.vg ? `VG ${ergebnis.vg} · ` : 'Verbandsfreie Gemeinde · '}
+                    Rhein-Pfalz-Kreis · Rheinland-Pfalz
+                  </p>
+                </div>
+                <button onClick={() => setCockpitOffen(false)} className="text-slate-400 hover:text-slate-600 text-lg">✕</button>
+              </div>
+            )}
 
             {/* Informationshierarchie */}
             <div className="px-6 py-3 bg-slate-50 border-b border-slate-100">
               <p className="text-xs text-slate-500 mb-2 font-medium">Verwaltungsebenen:</p>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">🇩🇪 Bundestag</span>
-                <span className="text-slate-300">›</span>
-                <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md">🏛️ Landtag RLP</span>
-                <span className="text-slate-300">›</span>
-                <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-md">🏢 Rhein-Pfalz-Kreis</span>
-                <span className="text-slate-300">›</span>
-                <span className="bg-green-100 text-green-700 px-2 py-1 rounded-md">🏘️ VG {ergebnis.vg}</span>
-                <span className="text-slate-300">›</span>
-                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-semibold">📍 {ergebnis.ort}</span>
-              </div>
+              {ergebnis.typ === 'kreisfrei' ? (
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">🇩🇪 Bundestag</span>
+                  <span className="text-slate-300">›</span>
+                  <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md">🏛️ Landtag RLP</span>
+                  <span className="text-slate-300">›</span>
+                  <span className="bg-violet-100 text-violet-700 px-2 py-1 rounded-md font-semibold">🏙️ Stadt {ergebnis.ort} (kreisfrei)</span>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">🇩🇪 Bundestag</span>
+                  <span className="text-slate-300">›</span>
+                  <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md">🏛️ Landtag RLP</span>
+                  <span className="text-slate-300">›</span>
+                  <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-md">🏢 Rhein-Pfalz-Kreis</span>
+                  {ergebnis.vg && (<><span className="text-slate-300">›</span><span className="bg-green-100 text-green-700 px-2 py-1 rounded-md">🏘️ VG {ergebnis.vg}</span></>)}
+                  <span className="text-slate-300">›</span>
+                  <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-semibold">📍 {ergebnis.ort}</span>
+                </div>
+              )}
             </div>
 
-            {/* Module Grid */}
+            {/* Module */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
-              {COCKPIT_MODULE.map((m) => (
+              {module.map((m) => (
                 <div
                   key={m.titel}
                   className="border border-slate-200 rounded-xl p-4 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all group"
@@ -222,20 +268,25 @@ export default function Home() {
                   <div className="font-semibold text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">{m.titel}</div>
                   <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
                   {m.tag && (
-                    <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>
-                      {m.tag}
-                    </span>
+                    <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>
                   )}
                 </div>
               ))}
             </div>
+
+            {/* Speyer-Hinweis */}
+            {ergebnis.typ === 'kreisfrei' && (
+              <div className="mx-6 mb-6 bg-violet-50 border border-violet-200 rounded-xl px-4 py-3 text-sm text-violet-800">
+                <strong>Hinweis:</strong> Speyer ist eine kreisfreie Stadt — sie gehört keinem Landkreis an und hat eine vollständig eigene Verwaltungsstruktur mit eigenem Stadtrat, eigenem Amtsblatt (speyer.de) und eigenem Haushalt.
+              </div>
+            )}
           </section>
         )}
 
         {/* Abgeordnete */}
         <section id="abgeordnete" className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-100">
-            <h3 className="font-semibold text-slate-800">🏛️ Abgeordnete im Rhein-Pfalz-Kreis</h3>
+            <h3 className="font-semibold text-slate-800">🏛️ Abgeordnete in der Region</h3>
             <p className="text-xs text-slate-400 mt-0.5">Bundestag & Landtag RLP · Quellen: bundestag.de · landtag.rlp.de · abgeordnetenwatch.de</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
@@ -252,12 +303,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">
-                    Profil →
-                  </button>
-                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">
-                    Abstimmungen →
-                  </button>
+                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Profil →</button>
+                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Abstimmungen →</button>
                 </div>
               </div>
             ))}
@@ -280,7 +327,7 @@ export default function Home() {
       </main>
 
       <footer className="bg-slate-900 text-slate-400 text-center text-xs py-8 mt-12 space-y-1">
-        <p>KreisRadar Rhein-Pfalz · Alle Daten aus öffentlichen Quellen · Kein kommerzieller Betrieb</p>
+        <p>KreisRadar · Rhein-Pfalz-Kreis & Speyer · Alle Daten aus öffentlichen Quellen</p>
         <p>Karte: © <a href="https://www.openstreetmap.org/copyright" className="underline hover:text-slate-200">OpenStreetMap</a> Contributors · Konzept: Mai 2026</p>
       </footer>
 
