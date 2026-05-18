@@ -66,14 +66,34 @@ Object.entries(PLZ_DATA).forEach(([plz, d]) => {
 });
 
 const ABGEORDNETE = [
-  { name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag',    wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900',
-    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/M/mackensen_geis_isabel-857802', awUrl: 'https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis' },
-  { name: 'Torbjörn Kartes',        partei: 'CDU', ebene: 'Bundestag',    wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900',
-    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/K/kartes_torbjörn-858068',       awUrl: 'https://www.abgeordnetenwatch.de/profile/torbjorn-kartes' },
-  { name: 'Michael Frisch',         partei: 'AfD', ebene: 'Bundestag',    wahlkreis: 'Neustadt/Speyer',          parteifarbe: 'bg-blue-600',  farbe: 'bg-blue-50 border-blue-200',   textfarbe: 'text-blue-900',
-    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/F/frisch_michael-858108',         awUrl: 'https://www.abgeordnetenwatch.de/profile/michael-frisch' },
-  { name: 'Lea Heidbreder',         partei: 'SPD', ebene: 'Landtag RLP',  wahlkreis: 'Rhein-Pfalz-Kreis I',     parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900',
-    profilUrl: 'https://www.landtag.rlp.de/abgeordnete/',                                          awUrl: 'https://www.abgeordnetenwatch.de/rheinland-pfalz/abgeordnete' },
+  {
+    name: 'Prof. Dr. Armin Grau', partei: 'Grüne', ebene: 'Bundestag',
+    wahlkreis: 'WK 206 Ludwigshafen/Frankenthal · über Landesliste',
+    parteifarbe: 'bg-green-600', farbe: 'bg-green-50 border-green-200', textfarbe: 'text-green-900',
+    profilUrl: 'https://www.abgeordnetenwatch.de/profile/armin-grau',
+    awUrl: 'https://www.abgeordnetenwatch.de/profile/armin-grau/abstimmungen',
+  },
+  {
+    name: 'Johannes Steiniger', partei: 'CDU', ebene: 'Bundestag',
+    wahlkreis: 'WK 207 Neustadt-Speyer · Direktmandat (34,7 %)',
+    parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900',
+    profilUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-steiniger',
+    awUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-steiniger/abstimmungen',
+  },
+  {
+    name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag',
+    wahlkreis: 'WK 207 Neustadt-Speyer · über Landesliste',
+    parteifarbe: 'bg-red-500', farbe: 'bg-red-50 border-red-200', textfarbe: 'text-red-900',
+    profilUrl: 'https://www.bundestag.de/abgeordnete/biografien/M/mackensen_geis_isabel-1045928',
+    awUrl: 'https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis',
+  },
+  {
+    name: 'Landtag RLP – Abgeordnetensuche', partei: 'RLP', ebene: 'Landtag RLP',
+    wahlkreis: 'Rhein-Pfalz-Kreis · alle Fraktionen',
+    parteifarbe: 'bg-purple-600', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
+    profilUrl: 'https://www.landtag.rlp.de/de/parlament/abgeordnete/abgeordnetensuche/',
+    awUrl: 'https://www.abgeordnetenwatch.de/rheinland-pfalz/abgeordnete',
+  },
 ];
 
 interface Modul {
@@ -392,6 +412,9 @@ export default function Home() {
           <div className="px-6 py-4 border-b border-slate-100">
             <h3 className="font-semibold text-slate-800">🏛️ Abgeordnete in der Region</h3>
             <p className="text-xs text-slate-400 mt-0.5">Bundestag & Landtag RLP · Quellen: bundestag.de · landtag.rlp.de · abgeordnetenwatch.de</p>
+          </div>
+          <div className="mx-6 mt-4 mb-2 bg-amber-50 border border-amber-200 rounded-xl px-4 py-2 text-xs text-amber-700">
+            <strong>Hinweis WK 206:</strong> Das Direktmandat Ludwigshafen/Frankenthal ist vakant — CDU-Sieger Sertac Bilgin zieht aufgrund der Wahlrechtsreform 2025 nicht in den Bundestag ein.
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
             {ABGEORDNETE.map((a) => (
