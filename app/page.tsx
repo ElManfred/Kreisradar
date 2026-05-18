@@ -345,7 +345,7 @@ export default function Home() {
           <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
             <div>
               <h3 className="font-semibold text-slate-800">🌐 Metropolregion Rhein-Neckar</h3>
-              <p className="text-xs text-slate-400 mt-0.5">2,4 Mio. Einwohner · 290 Gemeinden · BW, RLP & Hessen · Rhein-Pfalz-Kreis & Speyer sind Teil der MRN</p>
+              <p className="text-xs text-slate-400 mt-0.5">2,4 Mio. Einwohner · BW, RLP & Hessen · <span className="hidden sm:inline">Rhein-Pfalz-Kreis & Speyer gehören dazu</span><span className="sm:hidden">inkl. Rhein-Pfalz-Kreis & Speyer</span></p>
             </div>
             <span className="text-xs bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full font-medium hidden md:block">Open Data</span>
           </div>
@@ -375,12 +375,10 @@ export default function Home() {
             ].map((q) => (
               <a key={q.titel} href={q.url} target="_blank" rel="noopener noreferrer"
                 className="border border-slate-200 rounded-xl p-4 hover:border-cyan-400 hover:shadow-md transition-all block group">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">{q.icon}</span>
-                    <span className="font-semibold text-sm text-slate-800 group-hover:text-cyan-700 transition-colors">{q.titel}</span>
-                  </div>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${q.tagFarbe}`}>{q.tag}</span>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xl shrink-0">{q.icon}</span>
+                  <span className="font-semibold text-sm text-slate-800 group-hover:text-cyan-700 transition-colors">{q.titel}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ml-auto ${q.tagFarbe}`}>{q.tag}</span>
                 </div>
                 <p className="text-xs text-slate-500 leading-relaxed">{q.beschreibung}</p>
                 <p className="text-xs text-cyan-600 mt-2 font-medium">{q.quelle} ↗</p>
