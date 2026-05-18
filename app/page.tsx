@@ -184,20 +184,23 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50">
 
       {/* Header */}
-      <header className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">📡</span>
-          <div>
+      <header className="bg-slate-900 text-white px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="text-2xl shrink-0">📡</span>
+          <div className="min-w-0">
             <h1 className="text-xl font-bold leading-none">KreisRadar</h1>
-            <p className="text-slate-400 text-xs">Rhein-Pfalz-Kreis & Speyer</p>
+            <p className="text-slate-400 text-xs truncate">Rhein-Pfalz-Kreis & Speyer</p>
           </div>
         </div>
-        <nav className="hidden md:flex gap-6 text-sm text-slate-300">
+        <nav className="hidden md:flex gap-6 text-sm text-slate-300 shrink-0">
           <a href="#karte" className="hover:text-white transition">Karte</a>
           <a href="#abgeordnete" className="hover:text-white transition">Abgeordnete</a>
           <a href="#" className="hover:text-white transition">Über uns</a>
         </nav>
-        <span className="text-xs bg-emerald-600 px-3 py-1 rounded-full font-medium">Kostenlos & öffentlich</span>
+        <span className="text-xs bg-emerald-600 px-2 md:px-3 py-1 rounded-full font-medium shrink-0 whitespace-nowrap">
+          <span className="hidden sm:inline">Kostenlos & öffentlich</span>
+          <span className="sm:hidden">Kostenlos</span>
+        </span>
       </header>
 
       {/* Hero */}
@@ -244,11 +247,11 @@ export default function Home() {
 
         {/* Karte */}
         <section id="karte" className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h3 className="font-semibold text-slate-800">🗺️ Rhein-Pfalz-Kreis & Speyer</h3>
-            <span className="text-xs text-slate-400">OpenStreetMap · Suche oben oder klicke auf die Karte</span>
+          <div className="px-4 md:px-6 py-4 border-b border-slate-100 flex items-center justify-between gap-2">
+            <h3 className="font-semibold text-slate-800 shrink-0">🗺️ Rhein-Pfalz-Kreis & Speyer</h3>
+            <span className="text-xs text-slate-400 hidden sm:block">OpenStreetMap · Suche oben oder klicke auf die Karte</span>
           </div>
-          <div className="h-80">
+          <div className="h-64 md:h-80">
             <KreisRadarMap flyTo={flyTo} />
           </div>
         </section>
@@ -283,46 +286,48 @@ export default function Home() {
             )}
 
             {/* Informationshierarchie */}
-            <div className="px-6 py-3 bg-slate-50 border-b border-slate-100">
+            <div className="px-4 md:px-6 py-3 bg-slate-50 border-b border-slate-100">
               <p className="text-xs text-slate-500 mb-2 font-medium">Verwaltungsebenen:</p>
-              {ergebnis.typ === 'kreisfrei' ? (
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">🇩🇪 Bundestag</span>
-                  <span className="text-slate-300">›</span>
-                  <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md">🏛️ Landtag RLP</span>
-                  <span className="text-slate-300">›</span>
-                  <span className="bg-violet-100 text-violet-700 px-2 py-1 rounded-md font-semibold">🏙️ Stadt {ergebnis.ort} (kreisfrei)</span>
-                </div>
-              ) : (
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md">🇩🇪 Bundestag</span>
-                  <span className="text-slate-300">›</span>
-                  <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md">🏛️ Landtag RLP</span>
-                  <span className="text-slate-300">›</span>
-                  <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-md">🏢 Rhein-Pfalz-Kreis</span>
-                  {ergebnis.vg && (<><span className="text-slate-300">›</span><span className="bg-green-100 text-green-700 px-2 py-1 rounded-md">🏘️ VG {ergebnis.vg}</span></>)}
-                  <span className="text-slate-300">›</span>
-                  <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-semibold">📍 {ergebnis.ort}</span>
-                </div>
-              )}
+              <div className="overflow-x-auto pb-1">
+                {ergebnis.typ === 'kreisfrei' ? (
+                  <div className="flex gap-1.5 text-xs min-w-max">
+                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md whitespace-nowrap">🇩🇪 Bundestag</span>
+                    <span className="text-slate-300 self-center">›</span>
+                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md whitespace-nowrap">🏛️ Landtag RLP</span>
+                    <span className="text-slate-300 self-center">›</span>
+                    <span className="bg-violet-100 text-violet-700 px-2 py-1 rounded-md font-semibold whitespace-nowrap">🏙️ {ergebnis.ort} (kreisfrei)</span>
+                  </div>
+                ) : (
+                  <div className="flex gap-1.5 text-xs min-w-max">
+                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md whitespace-nowrap">🇩🇪 Bundestag</span>
+                    <span className="text-slate-300 self-center">›</span>
+                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-md whitespace-nowrap">🏛️ Landtag RLP</span>
+                    <span className="text-slate-300 self-center">›</span>
+                    <span className="bg-orange-100 text-orange-700 px-2 py-1 rounded-md whitespace-nowrap">🏢 Rhein-Pfalz-Kreis</span>
+                    {ergebnis.vg && (<><span className="text-slate-300 self-center">›</span><span className="bg-green-100 text-green-700 px-2 py-1 rounded-md whitespace-nowrap">🏘️ VG {ergebnis.vg}</span></>)}
+                    <span className="text-slate-300 self-center">›</span>
+                    <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-semibold whitespace-nowrap">📍 {ergebnis.ort}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Lokale Module */}
-            <div className="px-6 pt-5 pb-2">
+            <div className="px-4 md:px-6 pt-5 pb-2">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Lokale Informationen</p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-4 md:px-6 pb-4">
               {module.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="emerald" />)}
             </div>
 
             {/* MRN-Module */}
-            <div className="px-6 pt-3 pb-2 border-t border-slate-100 mt-2">
-              <div className="flex items-center gap-2">
+            <div className="px-4 md:px-6 pt-3 pb-2 border-t border-slate-100 mt-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Metropolregion Rhein-Neckar</p>
                 <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full">2,4 Mio. Einwohner</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-4 md:px-6 pb-6">
               {MRN_MODULE.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="cyan" />)}
             </div>
 
