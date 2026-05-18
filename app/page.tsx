@@ -72,26 +72,33 @@ const ABGEORDNETE = [
   { name: 'Lea Heidbreder',         partei: 'SPD', ebene: 'Landtag RLP', wahlkreis: 'Rhein-Pfalz-Kreis I',   parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900' },
 ];
 
+const MRN_MODULE = [
+  { icon: '🌐', titel: 'MRN-Nachrichten',     beschreibung: 'mrn-news.de · 265.000+ Meldungen',  tag: '',      tagFarbe: '' },
+  { icon: '🗄️', titel: 'MRN-Datenportal',     beschreibung: '360 offene Datensätze · CKAN-API',  tag: 'Open Data', tagFarbe: 'bg-cyan-100 text-cyan-700' },
+  { icon: '🚲', titel: 'Mobilität & ÖPNV',    beschreibung: 'VRN · NextBike · Fahrplan',          tag: '',      tagFarbe: '' },
+  { icon: '🏭', titel: 'Wirtschaft & Arbeit', beschreibung: 'IHK-Konjunktur · 160.000 Betriebe', tag: '',      tagFarbe: '' },
+];
+
 const COCKPIT_MODULE_KREIS = [
-  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',      tag: 'Neu',    tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',     tagFarbe: '' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',   tag: '',      tagFarbe: '' },
-  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',    tagFarbe: '' },
-  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '📰', titel: 'Nachrichten',           beschreibung: 'Regional · SWR · RPR1 · mrn-news', tag: '',     tagFarbe: '' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Meldungen direkt aufs Handy',       tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
-  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',  tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',       tag: 'Neu',    tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',      tagFarbe: '' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',    tag: '',      tagFarbe: '' },
+  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',     tagFarbe: '' },
+  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '📰', titel: 'Nachrichten',           beschreibung: 'SWR · RPR1 · mrn-news.de',          tag: '',      tagFarbe: '' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Meldungen direkt aufs Handy',        tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
+  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',   tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
 ];
 
 const COCKPIT_MODULE_SPEYER = [
   { icon: '📋', titel: 'Amtsblatt Speyer',     beschreibung: 'speyer.de · wöchentliche Ausgaben', tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏛️', titel: 'Stadtrat',              beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',   tagFarbe: '' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',        beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '', tagFarbe: '' },
-  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',    tagFarbe: '' },
-  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu', tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏰', titel: 'Dom & Tourismus',       beschreibung: 'UNESCO-Welterbe · Veranstaltungen',  tag: '',    tagFarbe: '' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Speyer-Meldungen aufs Handy',        tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
-  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',   tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+  { icon: '🏛️', titel: 'Stadtrat',              beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',      tagFarbe: '' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',        beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '',    tagFarbe: '' },
+  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends',   tag: '',     tagFarbe: '' },
+  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde',   tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
+  { icon: '🏰', titel: 'Dom & Tourismus',       beschreibung: 'UNESCO-Welterbe · Veranstaltungen',   tag: '',     tagFarbe: '' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Speyer-Meldungen aufs Handy',         tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
+  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
 ];
 
 const SCHNELLAUSWAHL = [
@@ -257,8 +264,11 @@ export default function Home() {
               )}
             </div>
 
-            {/* Module */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+            {/* Lokale Module */}
+            <div className="px-6 pt-5 pb-2">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Lokale Informationen</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-4">
               {module.map((m) => (
                 <div
                   key={m.titel}
@@ -266,6 +276,29 @@ export default function Home() {
                 >
                   <div className="text-2xl mb-2">{m.icon}</div>
                   <div className="font-semibold text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">{m.titel}</div>
+                  <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
+                  {m.tag && (
+                    <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* MRN-Module */}
+            <div className="px-6 pt-3 pb-2 border-t border-slate-100 mt-2">
+              <div className="flex items-center gap-2">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Metropolregion Rhein-Neckar</p>
+                <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full">2,4 Mio. Einwohner</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-6">
+              {MRN_MODULE.map((m) => (
+                <div
+                  key={m.titel}
+                  className="border border-cyan-100 bg-cyan-50/30 rounded-xl p-4 hover:border-cyan-400 hover:shadow-md cursor-pointer transition-all group"
+                >
+                  <div className="text-2xl mb-2">{m.icon}</div>
+                  <div className="font-semibold text-sm text-slate-800 group-hover:text-cyan-700 transition-colors">{m.titel}</div>
                   <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
                   {m.tag && (
                     <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>
@@ -282,6 +315,82 @@ export default function Home() {
             )}
           </section>
         )}
+
+        {/* Metropolregion Rhein-Neckar */}
+        <section id="mrn" className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h3 className="font-semibold text-slate-800">🌐 Metropolregion Rhein-Neckar</h3>
+              <p className="text-xs text-slate-400 mt-0.5">2,4 Mio. Einwohner · 290 Gemeinden · BW, RLP & Hessen · Rhein-Pfalz-Kreis & Speyer sind Teil der MRN</p>
+            </div>
+            <span className="text-xs bg-cyan-100 text-cyan-700 px-3 py-1 rounded-full font-medium hidden md:block">Open Data</span>
+          </div>
+
+          {/* Fakten-Leiste */}
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-slate-100 border-b border-slate-100">
+            {[
+              { zahl: '2,4 Mio.', label: 'Einwohner' },
+              { zahl: '95,3 Mrd. €', label: 'Wirtschaftsleistung' },
+              { zahl: '360', label: 'offene Datensätze' },
+              { zahl: '265.000+', label: 'Nachrichten (mrn-news)' },
+            ].map((f) => (
+              <div key={f.label} className="px-5 py-4 text-center">
+                <div className="text-lg font-bold text-cyan-700">{f.zahl}</div>
+                <div className="text-xs text-slate-500 mt-0.5">{f.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* MRN-Quellen */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+            {[
+              {
+                icon: '🗄️',
+                titel: 'Datenportal Rhein-Neckar',
+                beschreibung: '360 offene Datensätze zu Mobilität, Umwelt, Wirtschaft und Lebensqualität. CKAN-API für maschinellen Zugriff.',
+                quelle: 'daten.digitale-mrn.de',
+                tag: 'API verfügbar',
+                tagFarbe: 'bg-cyan-100 text-cyan-700',
+              },
+              {
+                icon: '📰',
+                titel: 'MRN-News',
+                beschreibung: 'Größtes regionales Nachrichtenportal der Metropolregion. Über 265.000 Meldungen, 1 Mio. Besucher/Monat.',
+                quelle: 'mrn-news.de',
+                tag: 'Kostenlos',
+                tagFarbe: 'bg-emerald-100 text-emerald-700',
+              },
+              {
+                icon: '🗺️',
+                titel: 'Metropolatlas',
+                beschreibung: 'Interaktive Karte der Metropolregion mit Raumordnungs- und Planungsdaten für alle 290 Gemeinden.',
+                quelle: 'm-r-n.com',
+                tag: 'Karte',
+                tagFarbe: 'bg-blue-100 text-blue-700',
+              },
+              {
+                icon: '🚲',
+                titel: 'Mobilität & VRN',
+                beschreibung: 'Fahrradverleihstationen (NextBike), ÖPNV-Daten, BMVI-Förderprojekte und Verkehrsmodell der Region.',
+                quelle: 'vrn.de · digitale-mrn.de',
+                tag: 'Open Data',
+                tagFarbe: 'bg-cyan-100 text-cyan-700',
+              },
+            ].map((q) => (
+              <div key={q.titel} className="border border-slate-200 rounded-xl p-4 hover:border-cyan-300 hover:shadow-sm transition-all">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">{q.icon}</span>
+                    <span className="font-semibold text-sm text-slate-800">{q.titel}</span>
+                  </div>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${q.tagFarbe}`}>{q.tag}</span>
+                </div>
+                <p className="text-xs text-slate-500 leading-relaxed">{q.beschreibung}</p>
+                <p className="text-xs text-cyan-600 mt-2 font-medium">{q.quelle}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Abgeordnete */}
         <section id="abgeordnete" className="bg-white rounded-2xl shadow-sm overflow-hidden">
