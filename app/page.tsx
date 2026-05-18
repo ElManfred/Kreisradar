@@ -66,44 +66,87 @@ Object.entries(PLZ_DATA).forEach(([plz, d]) => {
 });
 
 const ABGEORDNETE = [
-  { name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag', wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-red-500', farbe: 'bg-red-50 border-red-200', textfarbe: 'text-red-900' },
-  { name: 'Torbjörn Kartes',        partei: 'CDU', ebene: 'Bundestag', wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900' },
-  { name: 'Michael Frisch',         partei: 'AfD', ebene: 'Bundestag', wahlkreis: 'Neustadt/Speyer',          parteifarbe: 'bg-blue-600',  farbe: 'bg-blue-50 border-blue-200',   textfarbe: 'text-blue-900' },
-  { name: 'Lea Heidbreder',         partei: 'SPD', ebene: 'Landtag RLP', wahlkreis: 'Rhein-Pfalz-Kreis I',   parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900' },
+  { name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag',    wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900',
+    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/M/mackensen_geis_isabel-857802', awUrl: 'https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis' },
+  { name: 'Torbjörn Kartes',        partei: 'CDU', ebene: 'Bundestag',    wahlkreis: 'Ludwigshafen/Frankenthal', parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900',
+    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/K/kartes_torbjörn-858068',       awUrl: 'https://www.abgeordnetenwatch.de/profile/torbjorn-kartes' },
+  { name: 'Michael Frisch',         partei: 'AfD', ebene: 'Bundestag',    wahlkreis: 'Neustadt/Speyer',          parteifarbe: 'bg-blue-600',  farbe: 'bg-blue-50 border-blue-200',   textfarbe: 'text-blue-900',
+    profilUrl: 'https://www.bundestag.de/abgeordnete/biographien/F/frisch_michael-858108',         awUrl: 'https://www.abgeordnetenwatch.de/profile/michael-frisch' },
+  { name: 'Lea Heidbreder',         partei: 'SPD', ebene: 'Landtag RLP',  wahlkreis: 'Rhein-Pfalz-Kreis I',     parteifarbe: 'bg-red-500',   farbe: 'bg-red-50 border-red-200',     textfarbe: 'text-red-900',
+    profilUrl: 'https://www.landtag.rlp.de/abgeordnete/',                                          awUrl: 'https://www.abgeordnetenwatch.de/rheinland-pfalz/abgeordnete' },
 ];
 
-const MRN_MODULE = [
-  { icon: '🌐', titel: 'MRN-Nachrichten',     beschreibung: 'mrn-news.de · 265.000+ Meldungen',  tag: '',      tagFarbe: '' },
-  { icon: '🗄️', titel: 'MRN-Datenportal',     beschreibung: '360 offene Datensätze · CKAN-API',  tag: 'Open Data', tagFarbe: 'bg-cyan-100 text-cyan-700' },
-  { icon: '🚲', titel: 'Mobilität & ÖPNV',    beschreibung: 'VRN · NextBike · Fahrplan',          tag: '',      tagFarbe: '' },
-  { icon: '🏭', titel: 'Wirtschaft & Arbeit', beschreibung: 'IHK-Konjunktur · 160.000 Betriebe', tag: '',      tagFarbe: '' },
+interface Modul {
+  icon: string;
+  titel: string;
+  beschreibung: string;
+  tag: string;
+  tagFarbe: string;
+  url: string | null;
+}
+
+const MRN_MODULE: Modul[] = [
+  { icon: '🌐', titel: 'MRN-Nachrichten',     beschreibung: 'mrn-news.de · 265.000+ Meldungen',   tag: '',           tagFarbe: '',                               url: 'https://www.mrn-news.de/' },
+  { icon: '🗄️', titel: 'MRN-Datenportal',     beschreibung: '360 offene Datensätze · CKAN-API',   tag: 'Open Data',  tagFarbe: 'bg-cyan-100 text-cyan-700',       url: 'https://daten.digitale-mrn.de/' },
+  { icon: '🚲', titel: 'Mobilität & ÖPNV',    beschreibung: 'VRN · NextBike · Fahrplan',           tag: '',           tagFarbe: '',                               url: 'https://www.vrn.de/' },
+  { icon: '🏭', titel: 'Wirtschaft & Arbeit', beschreibung: 'IHK-Konjunktur · 160.000 Betriebe',  tag: '',           tagFarbe: '',                               url: 'https://www.pfalz.ihk24.de/' },
 ];
 
-const COCKPIT_MODULE_KREIS = [
-  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',       tag: 'Neu',    tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',      tagFarbe: '' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',    tag: '',      tagFarbe: '' },
-  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends', tag: '',     tagFarbe: '' },
-  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde', tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '📰', titel: 'Nachrichten',           beschreibung: 'SWR · RPR1 · mrn-news.de',          tag: '',      tagFarbe: '' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Meldungen direkt aufs Handy',        tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
-  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',   tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+const COCKPIT_MODULE_KREIS: Modul[] = [
+  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',        tag: '',           tagFarbe: '',                               url: 'https://www.rhein-pfalz-kreis.de/aktuelles/bekanntmachungen/' },
+  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',           tagFarbe: '',                               url: 'https://www.abgeordnetenwatch.de/' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',     tag: '',           tagFarbe: '',                               url: 'https://wahlen.rlp.de/' },
+  { icon: '📊', titel: 'Statistik',            beschreibung: 'Bevölkerung · Wirtschaft · Trends',  tag: '',           tagFarbe: '',                               url: 'https://www.meine-heimat-statistik.de/' },
+  { icon: '💰', titel: 'Rechnungshof',         beschreibung: 'Kommunalbericht · Prüfungsbefunde',  tag: '',           tagFarbe: '',                               url: 'https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/' },
+  { icon: '📰', titel: 'Nachrichten',          beschreibung: 'SWR Aktuell · RPR1 · mrn-news',      tag: '',           tagFarbe: '',                               url: 'https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/index.html' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',       beschreibung: 'Meldungen direkt aufs Handy',         tag: 'Bald',       tagFarbe: 'bg-amber-100 text-amber-700',     url: null },
+  { icon: '🤖', titel: 'KI-Assistent',         beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2',    tagFarbe: 'bg-slate-100 text-slate-500',     url: null },
 ];
 
-const COCKPIT_MODULE_SPEYER = [
-  { icon: '📋', titel: 'Amtsblatt Speyer',     beschreibung: 'speyer.de · wöchentliche Ausgaben', tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏛️', titel: 'Stadtrat',              beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',      tagFarbe: '' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',        beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '',    tagFarbe: '' },
-  { icon: '📊', titel: 'Statistik',             beschreibung: 'Bevölkerung · Wirtschaft · Trends',   tag: '',     tagFarbe: '' },
-  { icon: '💰', titel: 'Rechnungshof',          beschreibung: 'Kommunalbericht · Prüfungsbefunde',   tag: 'Neu',  tagFarbe: 'bg-emerald-100 text-emerald-700' },
-  { icon: '🏰', titel: 'Dom & Tourismus',       beschreibung: 'UNESCO-Welterbe · Veranstaltungen',   tag: '',     tagFarbe: '' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',        beschreibung: 'Speyer-Meldungen aufs Handy',         tag: 'Bald', tagFarbe: 'bg-amber-100 text-amber-700' },
-  { icon: '🤖', titel: 'KI-Assistent',          beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2', tagFarbe: 'bg-slate-100 text-slate-500' },
+const COCKPIT_MODULE_SPEYER: Modul[] = [
+  { icon: '📋', titel: 'Amtsblatt Speyer',    beschreibung: 'speyer.de · wöchentliche Ausgaben',  tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/rathaus/verwaltung/amtsblatt/' },
+  { icon: '🏛️', titel: 'Stadtrat',             beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/rathaus/stadtrat-und-gremien/' },
+  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '',          tagFarbe: '',                               url: 'https://wahlen.rlp.de/' },
+  { icon: '📊', titel: 'Statistik',            beschreibung: 'Bevölkerung · Wirtschaft · Trends',  tag: '',           tagFarbe: '',                               url: 'https://www.meine-heimat-statistik.de/' },
+  { icon: '💰', titel: 'Rechnungshof',         beschreibung: 'Kommunalbericht · Prüfungsbefunde',  tag: '',           tagFarbe: '',                               url: 'https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/' },
+  { icon: '🏰', titel: 'Dom & Tourismus',      beschreibung: 'UNESCO-Welterbe · Veranstaltungen',  tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/tourismus/' },
+  { icon: '📲', titel: 'WhatsApp-Kanal',       beschreibung: 'Speyer-Meldungen aufs Handy',         tag: 'Bald',       tagFarbe: 'bg-amber-100 text-amber-700',     url: null },
+  { icon: '🤖', titel: 'KI-Assistent',         beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2',    tagFarbe: 'bg-slate-100 text-slate-500',     url: null },
 ];
 
 const SCHNELLAUSWAHL = [
   '67373 Dudenhofen', '67346 Speyer', '67105 Schifferstadt', '67133 Maxdorf',
 ];
+
+function ModulKarte({ m, hoverFarbe }: { m: Modul; hoverFarbe: 'emerald' | 'cyan' }) {
+  const hover = hoverFarbe === 'cyan'
+    ? 'border-cyan-100 bg-cyan-50/30 hover:border-cyan-400 group-hover:text-cyan-700'
+    : 'border-slate-200 hover:border-emerald-400 group-hover:text-emerald-700';
+
+  const inner = (
+    <>
+      <div className="text-2xl mb-2">{m.icon}</div>
+      <div className={`font-semibold text-sm text-slate-800 transition-colors ${hover.split(' ').slice(-1)}`}>{m.titel}</div>
+      <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
+      {m.tag && <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>}
+    </>
+  );
+
+  const base = `border rounded-xl p-4 transition-all group ${hover.split(' ').slice(0, -1).join(' ')}`;
+
+  if (m.url) {
+    return (
+      <a href={m.url} target="_blank" rel="noopener noreferrer" className={`${base} hover:shadow-md block`}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <div className={`${base} opacity-60 cursor-not-allowed`} title="Demnächst verfügbar">
+      {inner}
+    </div>
+  );
+}
 
 export default function Home() {
   const [suche, setSuche] = useState('');
@@ -269,19 +312,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Lokale Informationen</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-4">
-              {module.map((m) => (
-                <div
-                  key={m.titel}
-                  className="border border-slate-200 rounded-xl p-4 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all group"
-                >
-                  <div className="text-2xl mb-2">{m.icon}</div>
-                  <div className="font-semibold text-sm text-slate-800 group-hover:text-emerald-700 transition-colors">{m.titel}</div>
-                  <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
-                  {m.tag && (
-                    <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>
-                  )}
-                </div>
-              ))}
+              {module.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="emerald" />)}
             </div>
 
             {/* MRN-Module */}
@@ -292,19 +323,7 @@ export default function Home() {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6 pb-6">
-              {MRN_MODULE.map((m) => (
-                <div
-                  key={m.titel}
-                  className="border border-cyan-100 bg-cyan-50/30 rounded-xl p-4 hover:border-cyan-400 hover:shadow-md cursor-pointer transition-all group"
-                >
-                  <div className="text-2xl mb-2">{m.icon}</div>
-                  <div className="font-semibold text-sm text-slate-800 group-hover:text-cyan-700 transition-colors">{m.titel}</div>
-                  <div className="text-xs text-slate-500 mt-1 leading-relaxed">{m.beschreibung}</div>
-                  {m.tag && (
-                    <span className={`mt-2 inline-block text-xs px-2 py-0.5 rounded-full font-medium ${m.tagFarbe}`}>{m.tag}</span>
-                  )}
-                </div>
-              ))}
+              {MRN_MODULE.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="cyan" />)}
             </div>
 
             {/* Speyer-Hinweis */}
@@ -344,50 +363,23 @@ export default function Home() {
           {/* MRN-Quellen */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
             {[
-              {
-                icon: '🗄️',
-                titel: 'Datenportal Rhein-Neckar',
-                beschreibung: '360 offene Datensätze zu Mobilität, Umwelt, Wirtschaft und Lebensqualität. CKAN-API für maschinellen Zugriff.',
-                quelle: 'daten.digitale-mrn.de',
-                tag: 'API verfügbar',
-                tagFarbe: 'bg-cyan-100 text-cyan-700',
-              },
-              {
-                icon: '📰',
-                titel: 'MRN-News',
-                beschreibung: 'Größtes regionales Nachrichtenportal der Metropolregion. Über 265.000 Meldungen, 1 Mio. Besucher/Monat.',
-                quelle: 'mrn-news.de',
-                tag: 'Kostenlos',
-                tagFarbe: 'bg-emerald-100 text-emerald-700',
-              },
-              {
-                icon: '🗺️',
-                titel: 'Metropolatlas',
-                beschreibung: 'Interaktive Karte der Metropolregion mit Raumordnungs- und Planungsdaten für alle 290 Gemeinden.',
-                quelle: 'm-r-n.com',
-                tag: 'Karte',
-                tagFarbe: 'bg-blue-100 text-blue-700',
-              },
-              {
-                icon: '🚲',
-                titel: 'Mobilität & VRN',
-                beschreibung: 'Fahrradverleihstationen (NextBike), ÖPNV-Daten, BMVI-Förderprojekte und Verkehrsmodell der Region.',
-                quelle: 'vrn.de · digitale-mrn.de',
-                tag: 'Open Data',
-                tagFarbe: 'bg-cyan-100 text-cyan-700',
-              },
+              { icon: '🗄️', titel: 'Datenportal Rhein-Neckar', beschreibung: '360 offene Datensätze zu Mobilität, Umwelt, Wirtschaft und Lebensqualität. CKAN-API für maschinellen Zugriff.', quelle: 'daten.digitale-mrn.de', tag: 'API verfügbar', tagFarbe: 'bg-cyan-100 text-cyan-700',     url: 'https://daten.digitale-mrn.de/' },
+              { icon: '📰', titel: 'MRN-News',                  beschreibung: 'Größtes regionales Nachrichtenportal der Metropolregion. Über 265.000 Meldungen, 1 Mio. Besucher/Monat.',        quelle: 'mrn-news.de',           tag: 'Kostenlos',    tagFarbe: 'bg-emerald-100 text-emerald-700', url: 'https://www.mrn-news.de/' },
+              { icon: '🗺️', titel: 'Metropolatlas',             beschreibung: 'Interaktive Karte der Metropolregion mit Raumordnungs- und Planungsdaten für alle 290 Gemeinden.',              quelle: 'm-r-n.com',             tag: 'Karte',        tagFarbe: 'bg-blue-100 text-blue-700',       url: 'https://www.m-r-n.com/' },
+              { icon: '🚲', titel: 'Mobilität & VRN',           beschreibung: 'Fahrradverleihstationen (NextBike), ÖPNV-Daten, BMVI-Förderprojekte und Verkehrsmodell der Region.',            quelle: 'vrn.de',                tag: 'Open Data',   tagFarbe: 'bg-cyan-100 text-cyan-700',       url: 'https://www.vrn.de/' },
             ].map((q) => (
-              <div key={q.titel} className="border border-slate-200 rounded-xl p-4 hover:border-cyan-300 hover:shadow-sm transition-all">
+              <a key={q.titel} href={q.url} target="_blank" rel="noopener noreferrer"
+                className="border border-slate-200 rounded-xl p-4 hover:border-cyan-400 hover:shadow-md transition-all block group">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{q.icon}</span>
-                    <span className="font-semibold text-sm text-slate-800">{q.titel}</span>
+                    <span className="font-semibold text-sm text-slate-800 group-hover:text-cyan-700 transition-colors">{q.titel}</span>
                   </div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${q.tagFarbe}`}>{q.tag}</span>
                 </div>
                 <p className="text-xs text-slate-500 leading-relaxed">{q.beschreibung}</p>
-                <p className="text-xs text-cyan-600 mt-2 font-medium">{q.quelle}</p>
-              </div>
+                <p className="text-xs text-cyan-600 mt-2 font-medium">{q.quelle} ↗</p>
+              </a>
             ))}
           </div>
         </section>
@@ -412,8 +404,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Profil →</button>
-                  <button className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Abstimmungen →</button>
+                  <a href={a.profilUrl} target="_blank" rel="noopener noreferrer"
+                    className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Profil →</a>
+                  <a href={a.awUrl} target="_blank" rel="noopener noreferrer"
+                    className="text-xs bg-white/80 hover:bg-white border border-slate-200 px-3 py-1 rounded-lg transition">Abstimmungen →</a>
                 </div>
               </div>
             ))}
