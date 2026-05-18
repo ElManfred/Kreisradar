@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import Wahlergebnisse from './components/Wahlergebnisse';
 
 const KreisRadarMap = dynamic(() => import('./components/KreisRadarMap'), { ssr: false });
 
@@ -359,6 +360,9 @@ export default function Home() {
             )}
           </section>
         )}
+
+        {/* Wahlergebnisse */}
+        <Wahlergebnisse />
 
         {/* Metropolregion Rhein-Neckar */}
         <section id="mrn" className="bg-white rounded-2xl shadow-sm overflow-hidden">
