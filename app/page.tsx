@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Wahlergebnisse from './components/Wahlergebnisse';
+import NachrichtenFeed from './components/NachrichtenFeed';
 
 const KreisRadarMap = dynamic(() => import('./components/KreisRadarMap'), { ssr: false });
 
@@ -333,9 +334,12 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Aktuelle Meldungen */}
+            <NachrichtenFeed typ={ergebnis.typ} />
+
             {/* Lokale Module */}
             <div className="px-4 md:px-6 pt-5 pb-2">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Lokale Informationen</p>
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Weiterführende Informationen</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-4 md:px-6 pb-4">
               {module.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="emerald" />)}
