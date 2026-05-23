@@ -90,11 +90,18 @@ const ABGEORDNETE = [
     awUrl: 'https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis',
   },
   {
-    name: 'Landtag RLP', partei: 'RLP', ebene: 'Landtag RLP',
-    wahlkreis: 'Rhein-Pfalz-Kreis · alle Abgeordneten',
-    parteifarbe: 'bg-purple-600', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
-    profilUrl: 'https://www.landtag.rlp.de/de/parlament/abgeordnete/abgeordnetensuche/',
-    awUrl: 'https://www.abgeordnetenwatch.de/rheinland-pfalz/abgeordnete',
+    name: 'Johannes Zehfuß', partei: 'CDU', ebene: 'Landtag RLP',
+    wahlkreis: 'WK 38 Mutterstadt · Direktmandat (30,5 %)',
+    parteifarbe: 'bg-slate-700', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
+    profilUrl: 'https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/johannes-zehfuss-253',
+    awUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-zehfuss',
+  },
+  {
+    name: 'Michael Wagner', partei: 'CDU', ebene: 'Landtag RLP',
+    wahlkreis: 'WK 39 Speyer · Direktmandat (30,2 %)',
+    parteifarbe: 'bg-slate-700', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
+    profilUrl: 'https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/michael-wagner-242',
+    awUrl: 'https://www.abgeordnetenwatch.de/profile/michael-wagner',
   },
 ];
 
