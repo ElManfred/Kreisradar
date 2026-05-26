@@ -55,7 +55,7 @@
     { "icon": "🏛️", "titel": "Stadtrat",            "beschreibung": "44 Sitze · Fraktionen · Beschlüsse",  "tag": "",        "tagFarbe": "",                             "url": "https://www.speyer.de/de/rathaus/stadtrat-und-gremien/" },
     { "icon": "🗳️", "titel": "Wahlergebnisse",      "beschreibung": "OB-Wahl · Stadtratswahl · Bundestag", "tag": "",        "tagFarbe": "",                             "url": "https://wahlen.rlp.de/" },
     { "icon": "📊", "titel": "Statistik",           "beschreibung": "Bevölkerung · Wirtschaft · Trends",   "tag": "",        "tagFarbe": "",                             "url": "https://www.meine-heimat-statistik.de/" },
-    { "icon": "💰", "titel": "Rechnungshof",        "beschreibung": "Kommunalbericht · Prüfungsbefunde",   "tag": "",        "tagFarbe": "",                             "url": "https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/" },
+    { "icon": "💰", "titel": "Rechnungshof RLP",     "beschreibung": "Kommunalbericht · Prüfungsbefunde",   "tag": "",        "tagFarbe": "",                             "url": "https://rechnungshof.rlp.de/veroeffentlichungen/kommunalberichte/" },
     { "icon": "🏰", "titel": "Dom & Tourismus",     "beschreibung": "UNESCO-Welterbe · Veranstaltungen",   "tag": "",        "tagFarbe": "",                             "url": "https://www.speyer.de/de/tourismus/" },
     { "icon": "🌡️", "titel": "Klimadaten",          "beschreibung": "Emissionen · PV-Ausbau · Temperatur · CC BY", "tag": "",  "tagFarbe": "",                             "url": "https://klimadashboard.de/speyer" },
     { "icon": "📲", "titel": "WhatsApp-Kanal",      "beschreibung": "Speyer-Meldungen aufs Handy",          "tag": "Bald",    "tagFarbe": "bg-amber-100 text-amber-700",  "url": null },
