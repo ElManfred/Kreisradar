@@ -1,0 +1,71 @@
+{
+  "ags": "07318000",
+  "name": "Speyer",
+  "typ": "kreisfrei",
+  "lat": 49.318,
+  "lng": 8.431,
+
+  "newsfeeds": [
+    { "key": "speyer", "url": "https://www.mrn-news.de/tag/speyer/feed/", "label": "mrn-news.de · Speyer" }
+  ],
+
+  "wahlen": [
+    {
+      "titel": "Bundestagswahl 2025",
+      "datum": "23. Februar 2025",
+      "gebiet": "WK 207 Neustadt-Speyer · Zweitstimmen",
+      "typ": "btw",
+      "ergebnis": [
+        { "name": "CDU",    "prozent": 30.4, "farbe": "#374151" },
+        { "name": "AfD",    "prozent": 20.4, "farbe": "#3b82f6" },
+        { "name": "SPD",    "prozent": 18.1, "farbe": "#ef4444" },
+        { "name": "Grüne",  "prozent": 11.8, "farbe": "#22c55e" },
+        { "name": "FDP",    "prozent":  5.5, "farbe": "#eab308" },
+        { "name": "BSW",    "prozent":  5.2, "farbe": "#a855f7" },
+        { "name": "Sonst.", "prozent":  8.6, "farbe": "#94a3b8" }
+      ],
+      "quelle": "bundeswahlleiterin.de",
+      "quelleUrl": "https://www.bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/bund-99/land-7/wahlkreis-207.html",
+      "hinweis": "Direktmandat: Johannes Steiniger (CDU) 34,7 % · Wahlbeteiligung: 82,1 %"
+    },
+    {
+      "titel": "Landtagswahl 2026",
+      "datum": "9. März 2026",
+      "gebiet": "Wahlkreis Speyer (WK 39) · Landesstimmen",
+      "typ": "ltw",
+      "ergebnis": [
+        { "name": "CDU",    "prozent": 29.1, "farbe": "#374151" },
+        { "name": "SPD",    "prozent": 26.0, "farbe": "#ef4444" },
+        { "name": "AfD",    "prozent": 19.8, "farbe": "#3b82f6" },
+        { "name": "Grüne",  "prozent":  9.7, "farbe": "#22c55e" },
+        { "name": "Linke",  "prozent":  4.3, "farbe": "#ec4899" },
+        { "name": "FW",     "prozent":  3.4, "farbe": "#f97316" },
+        { "name": "FDP",    "prozent":  2.2, "farbe": "#eab308" },
+        { "name": "BSW",    "prozent":  2.2, "farbe": "#a855f7" },
+        { "name": "Sonst.", "prozent":  3.3, "farbe": "#94a3b8" }
+      ],
+      "quelle": "wahlen.rlp.de",
+      "quelleUrl": "https://rlp-ltw26.wahlen.23degrees.eu/wk/3390000000000/overview",
+      "hinweis": "Direktkandidat: Michael Wagner (CDU) 30,2 % · Wahlbeteiligung: 69,5 %"
+    }
+  ],
+
+  "module": [
+    { "icon": "📋", "titel": "Amtsblatt Speyer",   "beschreibung": "speyer.de · wöchentliche Ausgaben",   "tag": "",        "tagFarbe": "",                             "url": "https://www.speyer.de/de/rathaus/verwaltung/amtsblatt/" },
+    { "icon": "🏛️", "titel": "Stadtrat",            "beschreibung": "44 Sitze · Fraktionen · Beschlüsse",  "tag": "",        "tagFarbe": "",                             "url": "https://www.speyer.de/de/rathaus/stadtrat-und-gremien/" },
+    { "icon": "🗳️", "titel": "Wahlergebnisse",      "beschreibung": "OB-Wahl · Stadtratswahl · Bundestag", "tag": "",        "tagFarbe": "",                             "url": "https://wahlen.rlp.de/" },
+    { "icon": "📊", "titel": "Statistik",           "beschreibung": "Bevölkerung · Wirtschaft · Trends",   "tag": "",        "tagFarbe": "",                             "url": "https://www.meine-heimat-statistik.de/" },
+    { "icon": "💰", "titel": "Rechnungshof",        "beschreibung": "Kommunalbericht · Prüfungsbefunde",   "tag": "",        "tagFarbe": "",                             "url": "https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/" },
+    { "icon": "🏰", "titel": "Dom & Tourismus",     "beschreibung": "UNESCO-Welterbe · Veranstaltungen",   "tag": "",        "tagFarbe": "",                             "url": "https://www.speyer.de/de/tourismus/" },
+    { "icon": "🌡️", "titel": "Klimadaten",          "beschreibung": "Emissionen · PV-Ausbau · Temperatur · CC BY", "tag": "",  "tagFarbe": "",                             "url": "https://klimadashboard.de/speyer" },
+    { "icon": "📲", "titel": "WhatsApp-Kanal",      "beschreibung": "Speyer-Meldungen aufs Handy",          "tag": "Bald",    "tagFarbe": "bg-amber-100 text-amber-700",  "url": null },
+    { "icon": "🤖", "titel": "KI-Assistent",        "beschreibung": "Direkt in öffentliche Dokumente",     "tag": "Phase 2", "tagFarbe": "bg-slate-100 text-slate-500",  "url": null }
+  ],
+
+  "module_regional": [
+    { "icon": "🌐", "titel": "MRN-Nachrichten",     "beschreibung": "mrn-news.de · 265.000+ Meldungen",  "tag": "",           "tagFarbe": "",                             "url": "https://www.mrn-news.de/" },
+    { "icon": "🗄️", "titel": "MRN-Datenportal",     "beschreibung": "360 offene Datensätze · CKAN-API",  "tag": "Open Data",  "tagFarbe": "bg-cyan-100 text-cyan-700",    "url": "https://daten.digitale-mrn.de/" },
+    { "icon": "🚲", "titel": "Mobilität & ÖPNV",    "beschreibung": "VRN · NextBike · Fahrplan",          "tag": "",           "tagFarbe": "",                             "url": "https://www.vrn.de/" },
+    { "icon": "🏭", "titel": "Wirtschaft & Arbeit", "beschreibung": "IHK-Konjunktur · 160.000 Betriebe", "tag": "",           "tagFarbe": "",                             "url": "https://www.pfalz.ihk24.de/" }
+  ]
+}

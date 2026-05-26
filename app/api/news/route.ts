@@ -1,12 +1,14 @@
 import Parser from 'rss-parser';
+import gebiet07338 from '@/data/gebiete/07338000.json';
+import gebiet07318 from '@/data/gebiete/07318000.json';
 
 export const revalidate = 86400;
 
 const parser = new Parser({ timeout: 10000 });
 
 const FEEDS = {
-  kreis:  'https://www.mrn-news.de/tag/rhein-pfalz-kreis/feed/',
-  speyer: 'https://www.mrn-news.de/tag/speyer/feed/',
+  kreis:  gebiet07338.newsfeeds[0].url,
+  speyer: gebiet07318.newsfeeds[0].url,
 };
 
 async function fetchFeed(url: string) {

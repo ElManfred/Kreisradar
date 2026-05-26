@@ -8,7 +8,7 @@ interface Partei {
   farbe: string;
 }
 
-interface Wahl {
+export interface Wahl {
   titel: string;
   datum: string;
   gebiet: string;
@@ -19,7 +19,7 @@ interface Wahl {
   hinweis?: string;
 }
 
-const WAHLEN: Wahl[] = [
+const WAHLEN_FALLBACK: Wahl[] = [
   {
     titel: 'Bundestagswahl 2025',
     datum: '23. Februar 2025',
@@ -114,9 +114,9 @@ function BalkenDiagramm({ parteien }: { parteien: Partei[] }) {
   );
 }
 
-export default function Wahlergebnisse() {
+export default function Wahlergebnisse({ wahlen = WAHLEN_FALLBACK }: { wahlen?: Wahl[] }) {
   const [aktiv, setAktiv] = useState(0);
-  const wahl = WAHLEN[aktiv];
+  const wahl = wahlen[aktiv] ?? wahlen[0];
 
   return (
     <section id="wahlen" className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -127,7 +127,7 @@ export default function Wahlergebnisse() {
 
       {/* Wahl-Tabs */}
       <div className="flex border-b border-slate-100 overflow-x-auto">
-        {WAHLEN.map((w, i) => (
+        {wahlen.map((w, i) => (
           <button
             key={w.titel}
             onClick={() => setAktiv(i)}

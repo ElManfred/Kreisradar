@@ -4,6 +4,10 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import Wahlergebnisse from './components/Wahlergebnisse';
 import NachrichtenFeed from './components/NachrichtenFeed';
+import plzData from '@/data/plz.json';
+import abgeordneteData from '@/data/abgeordnete.json';
+import gebiet07338 from '@/data/gebiete/07338000.json';
+import gebiet07318 from '@/data/gebiete/07318000.json';
 
 const KreisRadarMap = dynamic(() => import('./components/KreisRadarMap'), { ssr: false });
 
@@ -13,52 +17,12 @@ interface OrtData {
   ort: string;
   vg: string | null;
   typ: OrtTyp;
+  ags: string;
   lat: number;
   lng: number;
 }
 
-// Alle Orte im Rhein-Pfalz-Kreis + Speyer als kreisfreie Stadt
-const PLZ_DATA: Record<string, OrtData> = {
-  // Verbandsfreie Stadt
-  '67105': { ort: 'Schifferstadt',          vg: null,                    typ: 'kreis',    lat: 49.382, lng: 8.373 },
-
-  // Verbandsfreie Gemeinden
-  '67122': { ort: 'Altrip',                 vg: null,                    typ: 'kreis',    lat: 49.441, lng: 8.502 },
-  '67240': { ort: 'Bobenheim-Roxheim',      vg: null,                    typ: 'kreis',    lat: 49.570, lng: 8.349 },
-  '67459': { ort: 'Böhl-Iggelheim',         vg: null,                    typ: 'kreis',    lat: 49.393, lng: 8.310 },
-  '67245': { ort: 'Lambsheim',              vg: null,                    typ: 'kreis',    lat: 49.530, lng: 8.287 },
-  '67117': { ort: 'Limburgerhof',           vg: null,                    typ: 'kreis',    lat: 49.413, lng: 8.383 },
-  '67112': { ort: 'Mutterstadt',            vg: null,                    typ: 'kreis',    lat: 49.438, lng: 8.356 },
-  '67141': { ort: 'Neuhofen',               vg: null,                    typ: 'kreis',    lat: 49.422, lng: 8.461 },
-
-  // VG Dannstadt-Schauernheim
-  '67125': { ort: 'Dannstadt-Schauernheim', vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.431, lng: 8.317 },
-  '67126': { ort: 'Hochdorf-Assenheim',     vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.451, lng: 8.299 },
-  '67127': { ort: 'Rödersheim-Gronau',      vg: 'Dannstadt-Schauernheim', typ: 'kreis',   lat: 49.442, lng: 8.277 },
-
-  // VG Lambsheim-Heßheim
-  '67259': { ort: 'Heßheim / Beindersheim', vg: 'Lambsheim-Heßheim',     typ: 'kreis',   lat: 49.551, lng: 8.311 },
-  '67258': { ort: 'Heßheim',                vg: 'Lambsheim-Heßheim',     typ: 'kreis',   lat: 49.552, lng: 8.272 },
-
-  // VG Maxdorf
-  '67133': { ort: 'Maxdorf',                vg: 'Maxdorf',               typ: 'kreis',   lat: 49.516, lng: 8.274 },
-  '67134': { ort: 'Birkenheide',            vg: 'Maxdorf',               typ: 'kreis',   lat: 49.519, lng: 8.253 },
-  '67136': { ort: 'Fußgönheim',             vg: 'Maxdorf',               typ: 'kreis',   lat: 49.474, lng: 8.268 },
-
-  // VG Rheinauen
-  '67166': { ort: 'Otterstadt',             vg: 'Rheinauen',             typ: 'kreis',   lat: 49.362, lng: 8.453 },
-  '67165': { ort: 'Waldsee',                vg: 'Rheinauen',             typ: 'kreis',   lat: 49.362, lng: 8.460 },
-
-  // VG Römerberg-Dudenhofen
-  '67354': { ort: 'Römerberg',              vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.351, lng: 8.396 },
-  '67373': { ort: 'Dudenhofen',             vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.367, lng: 8.432 },
-  '67374': { ort: 'Hanhofen',               vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.389, lng: 8.438 },
-  '67376': { ort: 'Harthausen',             vg: 'Römerberg-Dudenhofen',  typ: 'kreis',   lat: 49.373, lng: 8.460 },
-
-  // Speyer — kreisfreie Stadt (eigene Informationsbasis)
-  '67346': { ort: 'Speyer',                 vg: null,                    typ: 'kreisfrei', lat: 49.318, lng: 8.431 },
-  '67347': { ort: 'Speyer',                 vg: null,                    typ: 'kreisfrei', lat: 49.318, lng: 8.431 },
-};
+const PLZ_DATA = plzData as Record<string, OrtData>;
 
 // Ortsname → PLZ-Lookup
 const ORT_INDEX: Record<string, string> = {};
@@ -67,43 +31,7 @@ Object.entries(PLZ_DATA).forEach(([plz, d]) => {
   if (!ORT_INDEX[key]) ORT_INDEX[key] = plz;
 });
 
-const ABGEORDNETE = [
-  {
-    name: 'Prof. Dr. Armin Grau', partei: 'Grüne', ebene: 'Bundestag',
-    wahlkreis: 'WK 206 Ludwigshafen/Frankenthal · über Landesliste',
-    parteifarbe: 'bg-green-600', farbe: 'bg-green-50 border-green-200', textfarbe: 'text-green-900',
-    profilUrl: 'https://www.abgeordnetenwatch.de/profile/armin-grau',
-    awUrl: 'https://www.abgeordnetenwatch.de/profile/armin-grau/abstimmungen',
-  },
-  {
-    name: 'Johannes Steiniger', partei: 'CDU', ebene: 'Bundestag',
-    wahlkreis: 'WK 207 Neustadt-Speyer · Direktmandat (34,7 %)',
-    parteifarbe: 'bg-slate-700', farbe: 'bg-slate-50 border-slate-200', textfarbe: 'text-slate-900',
-    profilUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-steiniger',
-    awUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-steiniger/abstimmungen',
-  },
-  {
-    name: 'Isabel Mackensen-Geis', partei: 'SPD', ebene: 'Bundestag',
-    wahlkreis: 'WK 207 Neustadt-Speyer · über Landesliste',
-    parteifarbe: 'bg-red-500', farbe: 'bg-red-50 border-red-200', textfarbe: 'text-red-900',
-    profilUrl: 'https://www.bundestag.de/abgeordnete/biografien/M/mackensen_geis_isabel-1045928',
-    awUrl: 'https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis',
-  },
-  {
-    name: 'Johannes Zehfuß', partei: 'CDU', ebene: 'Landtag RLP',
-    wahlkreis: 'WK 38 Mutterstadt · Direktmandat (30,5 %)',
-    parteifarbe: 'bg-slate-700', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
-    profilUrl: 'https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/johannes-zehfuss-253',
-    awUrl: 'https://www.abgeordnetenwatch.de/profile/johannes-zehfuss',
-  },
-  {
-    name: 'Michael Wagner', partei: 'CDU', ebene: 'Landtag RLP',
-    wahlkreis: 'WK 39 Speyer · Direktmandat (30,2 %)',
-    parteifarbe: 'bg-slate-700', farbe: 'bg-purple-50 border-purple-200', textfarbe: 'text-purple-900',
-    profilUrl: 'https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/michael-wagner-242',
-    awUrl: 'https://www.abgeordnetenwatch.de/profile/michael-wagner',
-  },
-];
+const ABGEORDNETE = abgeordneteData;
 
 interface Modul {
   icon: string;
@@ -114,34 +42,10 @@ interface Modul {
   url: string | null;
 }
 
-const MRN_MODULE: Modul[] = [
-  { icon: '🌐', titel: 'MRN-Nachrichten',     beschreibung: 'mrn-news.de · 265.000+ Meldungen',   tag: '',           tagFarbe: '',                               url: 'https://www.mrn-news.de/' },
-  { icon: '🗄️', titel: 'MRN-Datenportal',     beschreibung: '360 offene Datensätze · CKAN-API',   tag: 'Open Data',  tagFarbe: 'bg-cyan-100 text-cyan-700',       url: 'https://daten.digitale-mrn.de/' },
-  { icon: '🚲', titel: 'Mobilität & ÖPNV',    beschreibung: 'VRN · NextBike · Fahrplan',           tag: '',           tagFarbe: '',                               url: 'https://www.vrn.de/' },
-  { icon: '🏭', titel: 'Wirtschaft & Arbeit', beschreibung: 'IHK-Konjunktur · 160.000 Betriebe',  tag: '',           tagFarbe: '',                               url: 'https://www.pfalz.ihk24.de/' },
-];
-
-const COCKPIT_MODULE_KREIS: Modul[] = [
-  { icon: '📋', titel: 'Amtsblätter',         beschreibung: 'Kreis & VG-Bekanntmachungen',        tag: '',           tagFarbe: '',                               url: 'https://www.rhein-pfalz-kreis.de/aktuelles/bekanntmachungen/' },
-  { icon: '🏛️', titel: 'Meine Abgeordneten',  beschreibung: 'Bund & Land · Abstimmungsverhalten', tag: '',           tagFarbe: '',                               url: 'https://www.abgeordnetenwatch.de/' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'Kommunal bis Ortsgemeindeebene',     tag: '',           tagFarbe: '',                               url: 'https://wahlen.rlp.de/' },
-  { icon: '📊', titel: 'Statistik',            beschreibung: 'Bevölkerung · Wirtschaft · Trends',  tag: '',           tagFarbe: '',                               url: 'https://www.meine-heimat-statistik.de/' },
-  { icon: '💰', titel: 'Rechnungshof',         beschreibung: 'Kommunalbericht · Prüfungsbefunde',  tag: '',           tagFarbe: '',                               url: 'https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/' },
-  { icon: '📰', titel: 'Nachrichten',          beschreibung: 'SWR Aktuell · RPR1 · mrn-news',      tag: '',           tagFarbe: '',                               url: 'https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/index.html' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',       beschreibung: 'Meldungen direkt aufs Handy',         tag: 'Bald',       tagFarbe: 'bg-amber-100 text-amber-700',     url: null },
-  { icon: '🤖', titel: 'KI-Assistent',         beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2',    tagFarbe: 'bg-slate-100 text-slate-500',     url: null },
-];
-
-const COCKPIT_MODULE_SPEYER: Modul[] = [
-  { icon: '📋', titel: 'Amtsblatt Speyer',    beschreibung: 'speyer.de · wöchentliche Ausgaben',  tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/rathaus/verwaltung/amtsblatt/' },
-  { icon: '🏛️', titel: 'Stadtrat',             beschreibung: '44 Sitze · Fraktionen · Beschlüsse', tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/rathaus/stadtrat-und-gremien/' },
-  { icon: '🗳️', titel: 'Wahlergebnisse',       beschreibung: 'OB-Wahl · Stadtratswahl · Bundestag', tag: '',          tagFarbe: '',                               url: 'https://wahlen.rlp.de/' },
-  { icon: '📊', titel: 'Statistik',            beschreibung: 'Bevölkerung · Wirtschaft · Trends',  tag: '',           tagFarbe: '',                               url: 'https://www.meine-heimat-statistik.de/' },
-  { icon: '💰', titel: 'Rechnungshof',         beschreibung: 'Kommunalbericht · Prüfungsbefunde',  tag: '',           tagFarbe: '',                               url: 'https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/' },
-  { icon: '🏰', titel: 'Dom & Tourismus',      beschreibung: 'UNESCO-Welterbe · Veranstaltungen',  tag: '',           tagFarbe: '',                               url: 'https://www.speyer.de/de/tourismus/' },
-  { icon: '📲', titel: 'WhatsApp-Kanal',       beschreibung: 'Speyer-Meldungen aufs Handy',         tag: 'Bald',       tagFarbe: 'bg-amber-100 text-amber-700',     url: null },
-  { icon: '🤖', titel: 'KI-Assistent',         beschreibung: 'Direkt in öffentliche Dokumente',    tag: 'Phase 2',    tagFarbe: 'bg-slate-100 text-slate-500',     url: null },
-];
+const GEBIETE: Record<string, typeof gebiet07338> = {
+  '07338000': gebiet07338,
+  '07318000': gebiet07318,
+};
 
 const SCHNELLAUSWAHL = [
   '67373 Dudenhofen', '67346 Speyer', '67105 Schifferstadt', '67133 Maxdorf',
@@ -207,7 +111,10 @@ export default function Home() {
     setFehler(`„${eingabe}" nicht gefunden. Versuche z.B. 67373, 67346 oder „Speyer".`);
   }
 
-  const module = ergebnis?.typ === 'kreisfrei' ? COCKPIT_MODULE_SPEYER : COCKPIT_MODULE_KREIS;
+  const gebiet = ergebnis ? GEBIETE[ergebnis.ags] ?? gebiet07338 : gebiet07338;
+  const module = gebiet.module as Modul[];
+  const moduleRegional = gebiet.module_regional as Modul[];
+  const wahlen = gebiet.wahlen;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -360,7 +267,7 @@ export default function Home() {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-4 md:px-6 pb-6">
-              {MRN_MODULE.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="cyan" />)}
+              {moduleRegional.map((m) => <ModulKarte key={m.titel} m={m} hoverFarbe="cyan" />)}
             </div>
 
             {/* Speyer-Hinweis */}
@@ -373,7 +280,7 @@ export default function Home() {
         )}
 
         {/* Wahlergebnisse */}
-        <Wahlergebnisse />
+        <Wahlergebnisse wahlen={wahlen as Parameters<typeof Wahlergebnisse>[0]['wahlen']} />
 
         {/* Metropolregion Rhein-Neckar */}
         <section id="mrn" className="bg-white rounded-2xl shadow-sm overflow-hidden">

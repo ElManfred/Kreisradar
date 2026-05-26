@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Prof. Dr. Armin Grau",
+    "partei": "Grüne",
+    "ebene": "Bundestag",
+    "wahlkreis": "WK 206 Ludwigshafen/Frankenthal · über Landesliste",
+    "parteifarbe": "bg-green-600",
+    "farbe": "bg-green-50 border-green-200",
+    "textfarbe": "text-green-900",
+    "profilUrl": "https://www.abgeordnetenwatch.de/profile/armin-grau",
+    "awUrl": "https://www.abgeordnetenwatch.de/profile/armin-grau/abstimmungen"
+  },
+  {
+    "name": "Johannes Steiniger",
+    "partei": "CDU",
+    "ebene": "Bundestag",
+    "wahlkreis": "WK 207 Neustadt-Speyer · Direktmandat (34,7 %)",
+    "parteifarbe": "bg-slate-700",
+    "farbe": "bg-slate-50 border-slate-200",
+    "textfarbe": "text-slate-900",
+    "profilUrl": "https://www.abgeordnetenwatch.de/profile/johannes-steiniger",
+    "awUrl": "https://www.abgeordnetenwatch.de/profile/johannes-steiniger/abstimmungen"
+  },
+  {
+    "name": "Isabel Mackensen-Geis",
+    "partei": "SPD",
+    "ebene": "Bundestag",
+    "wahlkreis": "WK 207 Neustadt-Speyer · über Landesliste",
+    "parteifarbe": "bg-red-500",
+    "farbe": "bg-red-50 border-red-200",
+    "textfarbe": "text-red-900",
+    "profilUrl": "https://www.bundestag.de/abgeordnete/biografien/M/mackensen_geis_isabel-1045928",
+    "awUrl": "https://www.abgeordnetenwatch.de/profile/isabel-mackensen-geis"
+  },
+  {
+    "name": "Johannes Zehfuß",
+    "partei": "CDU",
+    "ebene": "Landtag RLP",
+    "wahlkreis": "WK 38 Mutterstadt · Direktmandat (30,5 %)",
+    "parteifarbe": "bg-slate-700",
+    "farbe": "bg-purple-50 border-purple-200",
+    "textfarbe": "text-purple-900",
+    "profilUrl": "https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/johannes-zehfuss-253",
+    "awUrl": "https://www.abgeordnetenwatch.de/profile/johannes-zehfuss"
+  },
+  {
+    "name": "Michael Wagner",
+    "partei": "CDU",
+    "ebene": "Landtag RLP",
+    "wahlkreis": "WK 39 Speyer · Direktmandat (30,2 %)",
+    "parteifarbe": "bg-slate-700",
+    "farbe": "bg-purple-50 border-purple-200",
+    "textfarbe": "text-purple-900",
+    "profilUrl": "https://landtag-rlp.de/de/parlament/abgeordnete/abgeordnetensuche/michael-wagner-242",
+    "awUrl": "https://www.abgeordnetenwatch.de/profile/michael-wagner"
+  }
+]

@@ -1,0 +1,89 @@
+{
+  "ags": "07338000",
+  "name": "Rhein-Pfalz-Kreis",
+  "typ": "kreis",
+  "lat": 49.44,
+  "lng": 8.39,
+
+  "newsfeeds": [
+    { "key": "kreis", "url": "https://www.mrn-news.de/tag/rhein-pfalz-kreis/feed/", "label": "mrn-news.de · Rhein-Pfalz-Kreis" }
+  ],
+
+  "wahlen": [
+    {
+      "titel": "Bundestagswahl 2025",
+      "datum": "23. Februar 2025",
+      "gebiet": "WK 207 Neustadt-Speyer · Zweitstimmen",
+      "typ": "btw",
+      "ergebnis": [
+        { "name": "CDU",    "prozent": 30.4, "farbe": "#374151" },
+        { "name": "AfD",    "prozent": 20.4, "farbe": "#3b82f6" },
+        { "name": "SPD",    "prozent": 18.1, "farbe": "#ef4444" },
+        { "name": "Grüne",  "prozent": 11.8, "farbe": "#22c55e" },
+        { "name": "FDP",    "prozent":  5.5, "farbe": "#eab308" },
+        { "name": "BSW",    "prozent":  5.2, "farbe": "#a855f7" },
+        { "name": "Sonst.", "prozent":  8.6, "farbe": "#94a3b8" }
+      ],
+      "quelle": "bundeswahlleiterin.de",
+      "quelleUrl": "https://www.bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/bund-99/land-7/wahlkreis-207.html",
+      "hinweis": "Direktmandat: Johannes Steiniger (CDU) 34,7 % · Wahlbeteiligung: 82,1 %"
+    },
+    {
+      "titel": "Landtagswahl 2026",
+      "datum": "9. März 2026",
+      "gebiet": "Wahlkreis Speyer (WK 39) · Landesstimmen",
+      "typ": "ltw",
+      "ergebnis": [
+        { "name": "CDU",    "prozent": 29.1, "farbe": "#374151" },
+        { "name": "SPD",    "prozent": 26.0, "farbe": "#ef4444" },
+        { "name": "AfD",    "prozent": 19.8, "farbe": "#3b82f6" },
+        { "name": "Grüne",  "prozent":  9.7, "farbe": "#22c55e" },
+        { "name": "Linke",  "prozent":  4.3, "farbe": "#ec4899" },
+        { "name": "FW",     "prozent":  3.4, "farbe": "#f97316" },
+        { "name": "FDP",    "prozent":  2.2, "farbe": "#eab308" },
+        { "name": "BSW",    "prozent":  2.2, "farbe": "#a855f7" },
+        { "name": "Sonst.", "prozent":  3.3, "farbe": "#94a3b8" }
+      ],
+      "quelle": "wahlen.rlp.de",
+      "quelleUrl": "https://rlp-ltw26.wahlen.23degrees.eu/wk/3390000000000/overview",
+      "hinweis": "Direktkandidat: Michael Wagner (CDU) 30,2 % · Wahlbeteiligung: 69,5 %"
+    },
+    {
+      "titel": "Kreistagswahl 2024",
+      "datum": "9. Juni 2024",
+      "gebiet": "Rhein-Pfalz-Kreis · 153 Stimmbezirke · 50 Sitze",
+      "typ": "kw",
+      "ergebnis": [
+        { "name": "CDU",   "prozent": 30.7, "farbe": "#374151" },
+        { "name": "SPD",   "prozent": 21.4, "farbe": "#ef4444" },
+        { "name": "AfD",   "prozent": 17.2, "farbe": "#3b82f6" },
+        { "name": "Grüne", "prozent": 11.5, "farbe": "#22c55e" },
+        { "name": "FWG",   "prozent": 11.5, "farbe": "#f97316" },
+        { "name": "FDP",   "prozent":  5.7, "farbe": "#eab308" },
+        { "name": "Linke", "prozent":  1.9, "farbe": "#ec4899" }
+      ],
+      "quelle": "rhein-pfalz-kreis.de",
+      "quelleUrl": "https://www.rhein-pfalz-kreis.de/verwaltung-region/zahlen-wissenswertes/wahlergebnisse/",
+      "hinweis": "CDU 30,7 % & SPD 21,4 % amtlich bestätigt · AfD/Grüne/FWG/FDP/Linke aus amtlicher Sitzverteilung (50 Sitze) abgeleitet · Koalition CDU+SPD+FWG (31 Sitze)"
+    }
+  ],
+
+  "module": [
+    { "icon": "📋", "titel": "Amtsblätter",        "beschreibung": "Kreis & VG-Bekanntmachungen",        "tag": "",        "tagFarbe": "",                             "url": "https://www.rhein-pfalz-kreis.de/aktuelles/bekanntmachungen/" },
+    { "icon": "🏛️", "titel": "Meine Abgeordneten", "beschreibung": "Bund & Land · Abstimmungsverhalten", "tag": "",        "tagFarbe": "",                             "url": "https://www.abgeordnetenwatch.de/" },
+    { "icon": "🗳️", "titel": "Wahlergebnisse",      "beschreibung": "Kommunal bis Ortsgemeindeebene",     "tag": "",        "tagFarbe": "",                             "url": "https://wahlen.rlp.de/" },
+    { "icon": "📊", "titel": "Statistik",           "beschreibung": "Bevölkerung · Wirtschaft · Trends",  "tag": "",        "tagFarbe": "",                             "url": "https://www.meine-heimat-statistik.de/" },
+    { "icon": "💰", "titel": "Rechnungshof",        "beschreibung": "Kommunalbericht · Prüfungsbefunde",  "tag": "",        "tagFarbe": "",                             "url": "https://www.rechnungshof.rlp.de/de/veroeffentlichungen/berichte/" },
+    { "icon": "📰", "titel": "Nachrichten",         "beschreibung": "SWR Aktuell · RPR1 · mrn-news",      "tag": "",        "tagFarbe": "",                             "url": "https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/index.html" },
+    { "icon": "🌡️", "titel": "Klimadaten",          "beschreibung": "Emissionen · PV-Ausbau · Temperatur · CC BY", "tag": "",  "tagFarbe": "",                             "url": "https://klimadashboard.de/rhein-pfalz-kreis" },
+    { "icon": "📲", "titel": "WhatsApp-Kanal",      "beschreibung": "Meldungen direkt aufs Handy",         "tag": "Bald",    "tagFarbe": "bg-amber-100 text-amber-700",  "url": null },
+    { "icon": "🤖", "titel": "KI-Assistent",        "beschreibung": "Direkt in öffentliche Dokumente",    "tag": "Phase 2", "tagFarbe": "bg-slate-100 text-slate-500",  "url": null }
+  ],
+
+  "module_regional": [
+    { "icon": "🌐", "titel": "MRN-Nachrichten",     "beschreibung": "mrn-news.de · 265.000+ Meldungen",  "tag": "",           "tagFarbe": "",                             "url": "https://www.mrn-news.de/" },
+    { "icon": "🗄️", "titel": "MRN-Datenportal",     "beschreibung": "360 offene Datensätze · CKAN-API",  "tag": "Open Data",  "tagFarbe": "bg-cyan-100 text-cyan-700",    "url": "https://daten.digitale-mrn.de/" },
+    { "icon": "🚲", "titel": "Mobilität & ÖPNV",    "beschreibung": "VRN · NextBike · Fahrplan",          "tag": "",           "tagFarbe": "",                             "url": "https://www.vrn.de/" },
+    { "icon": "🏭", "titel": "Wirtschaft & Arbeit", "beschreibung": "IHK-Konjunktur · 160.000 Betriebe", "tag": "",           "tagFarbe": "",                             "url": "https://www.pfalz.ihk24.de/" }
+  ]
+}
